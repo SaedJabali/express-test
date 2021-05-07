@@ -3,8 +3,8 @@ const app = express()
 const weatherData = require('./assets/weather.json')
 const cors = require('cors')
 // const superagent = require('superagent');
-// require('dotenv').config();
-// const PORT = process.env.PORT;
+require('dotenv').config();
+const PORT = process.env.PORT;
 app.use(cors());
 
 const WEATHER_BIT_KEY = process.env.WEATHER_BIT_KEY;
@@ -12,7 +12,7 @@ app.get('/', function (req, res) {
   res.send('Hello World')
 })
 
-app.get('/weather', (req, res)=> {
+app.get('/weather', (req, res) => {
   const weatherArr = weatherData.data.map(element => new Weather(element));
   res.send(weatherArr);
 });
@@ -42,4 +42,6 @@ class Weather {
   }
 }
 
-app.listen(3001);
+app.listen(PORT, () => {
+  console.log(`server started on ${PORT}`);
+});
